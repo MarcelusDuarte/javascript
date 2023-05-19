@@ -21,10 +21,8 @@
     <h1>Olá, Mundo!</h1>
     <p>Estou aprendendo Javascript</p>
     <script>
-        window.alert('Minha primeira mensagem!') /*aparece mensagem na tela ANTES DE CARREGAR O CONTEÚDO*/
-        window.confirm('Está gostando de JS?')/*Cria janela com botão OK e Cancelar*/
-        window.prompt('Qual o seu nome?')
-
-    </script>
+        var nome = window.prompt('Qual o seu nome?') 
+        window.alert('É um grande prazer em te conhecer, ' + nome + ' !') /* Concatenação (sinal de +) */
+    </script> 
 </body>
 </html> 
