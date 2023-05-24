@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <header>
+        <h1>Vamos contar</h1>
+    </header>
+    <section>
+        <div id="dados">
+            <p>Início: <input type="number" name="txti" id="itxti"></p>
+            <p>Fim: <input type="number" name="txtf" id="itxtf"></p>
+            <p>Passo: <input type="number" name="txtp" id="itxtp"></p> 
+            <p><input type="button" value="Contar" onClick="contar()"></p>
+        </div>
+        <div id="res">
+            Preparando contagem...
+        </div>
+    </section>
+    <footer>
+        <p>&copy; copyright</p>
+    </footer>
+    <script src="script.js"></script> <!-- Criando um arquivo de script JS externo, como feito com o CSS-->
+</body>
+</html>
