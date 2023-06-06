@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <script>
+        /*
+        var cont;
+        for(cont=0;cont<10;cont++){
+            document.write("CFB <br>");
+        } */
+    /****************************************************/    
+      /*
+       var num=[];
+       num.push(0);
+       num.push(1);
+       num.push(2);
+       num.push(3);
+       num.push(4);
+
+       for(cont=0;cont<5;cont++){
+        document.write(num[cont]+"<br>")
+       }*/
+       /*****************************************************/
+
+       /*
+       var num=[];
+
+       for(cont=0;cont<5;cont++){
+            num.push(prompt("Digite um número", "")); // retona pra quem fez a chamada o que foi digitado na caixa de texto. Retorna para o push e vai ser armazenado dentro do num o que foi digitado na caixa de texto
+       }
+
+       for(cont=0;cont<5;cont++){
+       document.write(num[cont] + "<br>")
+        }
+        */ 
+
+        /***************************************************/ 
+
+        var mochila=[
+            ["Corda",1],
+            ["Cura",10],
+            ["Lanterna",1],
+            ["Pilhas",20]
+        ];
+
+        for(var linha=0;linha<4;linha++){ //Array dentro de array. Primeiro FOR varre as linhas do array mochila
+            for(var coluna=0;coluna<2;coluna++){ //segundo FOR varre os elementos do array interno
+                document.write(mochila[linha][coluna] + " ");
+            }
+            document.write("<br>");
+        }
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
