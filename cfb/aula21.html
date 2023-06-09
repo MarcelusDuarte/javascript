@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <script>
+       
+       /* 
+       try{
+            document.writi("JavaScript"); //se não houver erro, o catch não é executado
+        }catch(e){
+            document.write("ERRO: " + e.message); // Mostra a msg de erro na tela sem precisar do devtools
+            console.log("Mensagem de erro: " + e.message);
+        }*/
+        
+        /***********************************************************/
+
+        /*
+        var num;
+        try{
+            num=10/0; //esse erro é tratado internamente pelo JS
+            document.write("ERRO: " +num);
+        }catch(e){
+
+        }*/
+
+        /**************************************************************/
+
+        var num;//Maximo 10
+
+        try{
+            num=prompt("Digite um valor");
+            if(num>10){
+                throw new Error("Valor inválido, o valor deve ser menor ou igual a 10"); // quando aparece a exceção, o throw gera o erro.
+            }
+            /*document.write("Valor: "+num);*/
+        /*    
+        }catch(e){
+            document.write("Erro: " + e.message);
+        }finally{
+            document.write("<br>Fim do Tratamento");
+        }*/
+
+        }catch(e){
+            console.log("Erro: " + e.message); //gerado o erro pelo throw e enviado pro catch onde gerou o log e atribuiu o valor 10 para o num para não travar o programa.
+            num=10;
+        }finally{
+            document.write("Valor: "+num);
+        }   
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
