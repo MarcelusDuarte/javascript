@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style>
+        .titulo{
+            color: #f00;
+            font-size: 20px;
+            text-decoration: underline;
+        }
+
+        div{
+            border: 1px solid #000;
+            padding: 10px;
+            display: inline-block; /* só ocupa o tamanho do conteúdo */
+        }
+
+        a{
+            display: block;
+        }
+        .quadro {
+            background-color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="titulo">querySelectorAll</h1>
+    <p>O querySelestorAll() é um método que retorna os elementos do documento que correspondem a uma classe de CSS ou a uma tag específica</p>
+    <h2 class="titulo">Curso de JavaScript</h2>
+    <p>www.youtube.com/cfbcursos</p>
+    <p class="titulo">cfbcursos.com.br</p>
+    <div>
+        <h3>Curso de JavaScript</h3>
+        <p>Este texto está dentro de uma div</p>
+        <p>Este também</p>
+    </div>
+    <div class="quadro">
+        <h3>Curso de JavaScript</h3>
+        <p>Este texto está dentro de uma div</p>
+        <p>Este também</p>
+    </div>
+    <a href="http://www.youtube.com/cfbcursos" target="_blank">CANAL</a>
+    <a href="http://cfbcursos.com.br">SITE</a>
+
+    <hr>
+
+    <script>
+
+        /*
+        var ps=document.querySelectorAll("p");   //indicar qual a tags cujos elementos quer retornar
+        document.write(ps[0].innerHTML);         //captura o elemento indice 0 e escreve na tela
+        ps[1].style.color="#00f";                // altera a cor do elemento indice 1.
+        ps[1].innerHTML="Novo Texto";            //altera o texto do elemento
+        */
+
+        /**********************************************************************************************
+        var elementos=document.querySelectorAll(".titulo");   //captura todos os elementos que possuem a classe titulo
+        for(var i=0;i<elementos.length;i++){
+            document.write(elementos[i].innerHTML+"<br>");
+        }
+        */
+
+        /*********************************************************************
+        var elementos=document.querySelectorAll("p.titulo");     //retorna apenas os elementos p que possuem a classe titulo
+        for(var i=0;i<elementos.length;i++){
+            document.write(elementos[i].innerHTML+"<br>");
+        }  
+        */
+       
+        //var elementos=document.querySelectorAll("div > p");     // seleciona apenas os p que estão dentro de div. Se quiser todos os elementos, coloca "div > *"
+        //var elementos=document.querySelectorAll("div.quadro > p"); // seleciona apenas os p que estão dentro de divs com classes quadro.
+        var elementos=document.querySelectorAll("h1, h2, h3");    // seleciona apenas os Hs.
+        for(var i=0;i<elementos.length;i++){
+            elementos[i].style.color="#0a0";
+        }
+
+    </script>
+
+
+</body>
+</html> 
