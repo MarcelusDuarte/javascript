@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <script> 
+    </script>
+</head>
+<body>
+    <h2>Cursos</h2>
+    <p>Curso de JacaScript</p>
+    <h2>Aula 24</h2>
+    <p>www.youtube.com</p>
+    <h2>cfbcursos.com.br</h2>
+
+    <hr>
+
+    <script>
+
+        /*
+        var tagsP=document.getElementsByTagName("p"); //retorna varios elementos numa estrutura de vetor. No caso, todos os elementos com tag p.
+        document.write(tagsP[2].innerHTML); */
+
+        /*    
+        var tagsP=document.getElementsByTagName("p")[3]; //mesma coisa anterior mas salvando o elemento direto na variavel
+        document.write(tagsP.innerHTML); */
+
+        /*
+        var tagsP=document.getElementsByTagName("p"); 
+        for(var i=0;i<tagsP.length;i++){
+            tagsP[i].style.color="#f00";
+        }*/
+        
+        var tags=document.getElementsByTagName("*"); //pega todas as tags da pagina, desde o <!DOCTYPE html> (ESSA NÃO CONTA)
+        tags[10].style.color="#f00"; //muda o texto da tag8. As tags de fechamento não entram na contagem, que começa em 0.
+        tags[10].innerHTML="Novo Texto";
+
+
+    </script>
+</body>
+</html> 
