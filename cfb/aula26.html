@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style>
+        label{
+            display: block;
+        }
+
+        input{
+            display: block;
+        }
+
+        input[type=submit]{
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form name="curso1" id="curso1" action="#" method="post">
+        <label>Nome</label>
+        <input type="text" name="fNome" id="teste" value="Primeiro - 1">
+        <label>Senha</label>
+        <input type="password" name="fSenha" value="123">
+        <input type="submit" name="btEnviar" value="Enviar">
+    </form>
+   
+    <hr>
+
+    <script>
+
+        //var fm=document.forms.length;       //forms não aponta para os elementos do formulário. Ele aponta para o formulário em si.
+        //var fm=document.forms[0].id;        //retorna o id do formulário de indice 0.
+        //var fm=document.forms.item(0).id;   // semelhando ao anterior usando metodo item
+        //var fm=document.forms.namedItem("curso1").id;       // semelhante ao anterior usando o nome do item
+        //var fm=document.forms.namedItem("curso1").innerHTML;    //retorna o proprio formulario em si
+        //var fm=document.forms["curso1"].elements[0].value;     // retorna o valor do elemento indice 0 (o <label> não conta).
+        
+
+        document.write(document.getElementById("curso1").elements[0].value); // escreve o conteudo da chave "value" do elemento indice 0 do elemento com id "curso1"
+
+        var fm=document.forms[0];   //captura todos os elementos do formulario
+        var el=fm.elements;    // el tem todos os elementos do formulario. usar formato de array para manipular os elementos
+
+        for(var i=0;i<el.length-1;i++){      // length - 1  para não pegar no botao de enviar. Não pega todos os elementos
+            el[i].style.backgroundColor="#bbb";   // elemento indice 0, mudando a cor de fundo
+            el[i].value="CFBCursos"
+        }    
+        //el[0].style.backgroundColor="#bbb";   // elemento indice 0, mudando a cor de fundo
+        //el[0].value="CFBCursos"   // muda o conteudo do value do elemento
+        
+        
+            //document.write(fm);       //fm -> numero de formularios que tenho na pagina
+
+
+        
+
+    </script>
+</body>
+</html> 
