@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <script>        
+
+        //var mt=(Math.PI);
+        //var mt=(Math.E);   //retorna numero de Euler
+        //var mt=(Math.SQRT2);  //retorna raiz quadrada de 2
+        //var mt=(Math.SQRT1_2)  // retorna raiz quadrada de 1/2
+        
+        //valor=10;
+        
+        //var mt=Math.abs(valor);  //retorna valor absoluto do numero
+        //var mt=Math.ceil(valor);  // arredonda pra cima
+        //var mt=Math.floor(valor);  //arredonda pra baixo
+        //var mt=Math.round(valor);  //arredonda para o inteiro mais proximo
+        //var mt=Math.pow(valor,5);   //retorna valor de "valor" elevado a 5( ou qq outro numero)
+        //var mt=Math.random()*valor;   //random retorna valor aleatorio entre 0 e 1 (*10 retorna numero aleatorio entre 0 e 10)
+        //var mt=Math.round(Math.random()*valor); // retorna valor arredondado(inteiro) do explo acima
+
+        /*
+        var valor=60;
+        for(var i=0;i<6;i++){
+            document.write(Math.round(Math.random()*valor)+"<br>");  //retorna 6 numeros aleatorios entre 0 e 60
+        }*/
+
+        /*
+        var valor=59;
+        for(var i=0;i<6;i++){
+            document.write(Math.round((Math.random()*valor)+1)+"<br>");  //retorna 6 numeros aleatorios entre 1 e 60
+        }
+        */
+
+
+        var angulo=90;  
+
+        var c=Math.cos(angulo * Math.PI/180);   //metodo recebe angulo em radiano e retorna em graus. Tem bug no JS que não dá valor 0. Dá valor muito proximo de 0.
+        var s=Math.sin(angulo * Math.PI/180);
+
+        document.write("Angulo: " + angulo + "<br>Cosseno: " + c + "<br>Seno: " + s);
+
+
+
+
+
+
+        document.write(mt);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html> 
