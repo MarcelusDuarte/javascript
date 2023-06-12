@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style>
+        #dv1{
+            width: 100px;
+            height: 100px;
+            position: fixed;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 100px; 
+            border: 5px solid greenyellow;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <div id="dv1">Quadrado 1</div>
+   
+    <script>
+    const divSquare = document.getElementById("dv1");
+    var farLeft  = 0;
+    var farTop   = 0;
+
+    // main
+     function main() {
+     this.divSquare;
+     divSquare.addEventListener("click",askMove);
+    }
+    
+    // movimenta o quadrado    
+    function moveSquare() {
+
+        this.farLeft;
+        this.farTop;
+        this.divSquare;
+        keyCode = event.keyCode;
+        var shiftSize = 5;
+
+        switch (keyCode) {
+            case 37:
+            farLeft-=shiftSize;
+            divSquare.style.left = farLeft + "px";
+            break;
+
+            case 38:
+            farTop-=shiftSize;
+            divSquare.style.top = farTop + "px";
+            break;
+
+            case 39:
+            farLeft+=shiftSize;
+            divSquare.style.left = farLeft + "px";
+            break;
+
+            case 40:
+            farTop+=shiftSize;
+            divSquare.style.top = farTop + "px";
+            break;
+
+            case 32:
+                var check = confirm("Deseja interromper a movimentação?");
+                if ( check === true ) { 
+                     removeEventListener("keydown",moveSquare);
+                     removeEventListener("click",askMove);
+                     divSquare.style.backgroundColor = "#fff";
+                }
+            break;
+        }
+       
+    }
+    
+    // deseja movimentar o quadrado?
+    function askMove() {
+    this.divSquare
+    var   response = confirm("Deseja movimentar o quadrado?");
+    if (response === true) {
+        divSquare.style.backgroundColor = '#f00';
+        addEventListener("keydown",moveSquare);
+    }
+    }
+
+    // inicializa main ao carregar a página (window)
+    window.addEventListener('load', main);
+    </script>
+
+
+</body>
+</html>
