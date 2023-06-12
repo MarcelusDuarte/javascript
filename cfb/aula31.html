@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style>
+        div{
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+        }
+    </style>
+    <script>        
+        
+        function mudaCor(obj,cor){    // função que muda a cor de um OBJ com a COR desejada
+            obj.style.backgroundColor=cor;
+        }
+
+        function mudaPos(obj){  //muda a posição do OBJ de forma aleatória na tela
+            obj.style.position="absolute";  //necessário posição ser absoluta
+            obj.style.left=Math.random()*500+"px";
+            obj.style.top=Math.random()*500+"px";
+        }
+
+        function ola(){  // função que cumprimenta o usuario de acordo com a hora que a pagina é carregada
+            var data=new Date();
+            var hora=data.getHours();
+            var txt="";
+            if(hora < 12){
+                txt="Bom dia";
+            }else if(hora < 18){
+                txt="Boa tarde";
+            }else{
+                txt="Boa noite";
+            } 
+            alert("Olá, "+txt)  ;
+        }
+
+
+
+    </script>
+</head>
+<body onload="ola()">  <!-- quando carrega a pagina, chama a função ola -->
+
+    <!--mudar a cor da div quando o mouse ficar sobre ela e sair dela-->
+    <div id="dv1" onMouseOver="mudaCor(this,'#F00')" onMouseOut="mudaCor(this,'#fff')"></div>
+    <br>
+
+    <!--
+    <button onclick="alert('Curso de Javascript')" onMouseOver="mudaCor(document.getElementById('dv1'),'#00f')">Clique em mim</button>  -> quando move o mouse sobre o botao, troca a cor da div para azul-->
+
+    <button onclick="alert('Curso de Javascript')" onmouseover="mudaPos(this)">Clique em mim</button>
+</body>
+</html> 
