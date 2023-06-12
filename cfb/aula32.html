@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style>
+        #dv1{
+            width: 100px;
+            height: 100px;
+            border: 1px solid #000;
+            background-color: #f00;
+            position: absolute;  /*absolute para permitir left e top*/
+            left: 0px;
+            top: 0px;
+
+        }
+    </style>
+    <script>        
+        
+        function msg(){
+            alert("Curso JavaScript");
+        }
+        
+        function cor(obj,cor){  //usamos apenas 1 função com parametros que muda a COR de determinado OBJ.
+            obj.style.backgroundColor=cor;
+        }
+        
+        //quando usa o addEventListener, qq evento que for interceptar, NÃO USA O ON
+        //Inicialização de Eventos
+        function addEventos(){
+            var obj=document.getElementById("dv1");
+            obj.addEventListener("click",msg);  
+            obj.addEventListener("mouseover",function(event){  //usando função anônima
+                cor(obj,"#fff");  //OBJ já foi capturado como variavel e pode ser usada aqui
+            });
+            obj.addEventListener("mouseout",function(event){
+                cor(obj,"#f00");
+            });
+        }
+        window.addEventListener("load",addEventos);
+
+    </script>
+</head>
+<body>  
+
+    <div id="dv1"></div>
+    
+</body>
+</html> 
