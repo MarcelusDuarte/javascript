@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style>
+        #jogador{
+           position: absolute;
+           left: 0px;
+           top: 0px;
+           background-color:#00f;
+           width: 50px;
+           height:50px; 
+        }
+    </style>
+    <script> 
+
+        var jog; //variavel que recebe o elemento que vai ser animado
+        var vel;
+        var dx;
+        var dy;
+        var px;
+        var py;
+        var anima; //variavel de controle, que vai receber o id da animação
+
+        function inicia(){
+            vel=5;
+            dx=1; //quero iniciar movimentando para a direita. Por isso o valor 1. Para esquerda seria -1
+            dy=0;
+            px=0;
+            py=0;
+            jog=document.getElementById("jogador"); //associado id jogador com a variavel jog. Preciso de evento de clique no jogador para parar o movimento
+            jog.addEventListener("click",function(){  //usando função anônima em vez de criar função pra parar
+                cancelAnimationFrame(anima);
+            });
+            game(); //gatilho que inicia a movimentação. Precisa gatilho para parar senao movimenta pra sempre
+        }
+        
+        function game(){
+            px+=dx*vel; //incrementa a cada interação para haver a movimentação
+            //py+=dy*vel;
+            jog.style.left=px+"px";  //passando a posição para o jogador
+            //jog.style.top=py+"px"; //nao quero deslocar na vertical por enquanto
+            if(px > 800){
+                dx=-1;
+            }else if(px < 0){
+                dx=1;
+            }
+            anima=requestAnimationFrame(game); // aqui cria o loop. Em inicia so faz uma vez
+        }
+
+        window.addEventListener("load",inicia);  //quando a pagina for carregada, inicia a função INICIA    
+
+    </script>
+</head>
+<body> 
+    <div id="jogador"></div>
+    <button>Iniciar</button>
+    <button>Parar</button>
+</body>
+</html>
