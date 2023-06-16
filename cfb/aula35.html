@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style>
+        #dv1{
+            width: 100px;
+            height: 100px;
+            border: 1px solid #000;
+            background-color: #f00;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+    </style>
+    <script>  //movimentação mais fluida do elemento
+
+        //variaveis de controle
+        var dx;
+        var dy;
+        var px;
+        var py;
+        var vel;
+        var obj;  //indica qual objeto vamos trabalhar
+        var tmp;  //indica o timer
+
+        function inicia(){  //inicia as variaveis globais
+            dx=0;
+            dy=0;
+            px=0;
+            py=0;
+            vel=10;
+            obj=document.getElementById("dv1");
+            document.addEventListener("keydown",teclaDw);  //eventos de controle das teclas
+            document.addEventListener("keyup",teclaUp);
+            tmp=setInterval(enterFrame, 10);  //taxa de chamada da função em milissegundo (taxa de quadros). Quanto menor o numero, mais rapido o movimento
+        }
+
+        function teclaDw(){
+            var tecla=event.key;
+            if(tecla=="a"){  //tecla para esquerda
+                dx=-1;
+            }else if(tecla=="w"){  //tecla para cima
+                dy=-1;
+            }else if(tecla=="d"){  //tecla para direita
+                dx=1;
+            }else if(tecla=="z"){  //tecla para baixo
+                dy=1;
+            }   
+        }
+
+        function teclaUp(){  //quando a tecla for liberada, não quero mais deslocar o elemento
+            var tecla=event.key;
+            if(tecla=="a"){
+                dx=0;
+            }else if(tecla=="w"){
+                dy=0;
+            }else if(tecla=="d"){
+                dx=0;
+            }else if(tecla=="z"){
+                dy=0;
+            }   
+        }
+
+        function enterFrame(){  //função que atualiza as posições do elemento. Todo o trabalho do joge é atualizado aqui (colisões, posições, exclusão de elementos que saem da tela, etc)
+            px+=dx*vel;
+            py+=dy*vel;
+            obj.style.left=px+"px";  //passando px para o objeto
+            obj.style.top=py+"px";   //passando py para o objeto
+            obj.innerHTML = "POS.X"+px+"<br>POS.Y"+py;
+        }
+
+        window.addEventListener("load",inicia)  //associa a função INICIA ao evento LOAD
+
+    </script>
+</head>
+<body> 
+    <div id="dv1"></div>
+</body>
+</html>
