@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style>
+        #dvslider{
+            width: 1000px;
+            height: 300px;
+            border: 1px solid #000;
+        }
+    </style>
+    <script>
+        //fazendo o pre carregamento das imagens para a pagina carregar mais rapido
+        var imgs=[];
+        var slider;
+        var imgAtual; // administra qual imagem estou carregando
+        var maxImg; //numero maximo de imagens
+        var tmp;
+        var tempoTroca;
+
+        function preCarregamento(){
+            var s=1;
+            for(var i=0;i<5;i++){
+                imgs[i]=new Image();  //carrega uma imagem em cada posição do vetor
+                imgs[i].src="imgs/s"+s+".jpg";  //url para a imagem (todas tem o nome começando por s)
+                s++;
+            }
+        }
+
+        //carrega a imagem no background da div
+        function carregarImg(img){
+            slider.style.backgroundImage="url('"+imgs[img].src+"')";
+        }
+
+        function inicia(){  //pega o obj div e armazena na variavel slider
+            preCarregamento(); //faz o precarregamento das imagens na memoria
+            imgAtual=0;  //indica qual imagem quero carregar. Mostra o indice do vetor
+            maxImg=imgs.length-1; //indica numero maximo de imagens. O array começa do 0, por isso o -1
+            slider=document.getElementById("dvslider"); //associei o elemento que estou trabalhando na variavel slider
+            carregarImg(imgAtual);
+            tempoTroca=1000;
+            tmp=setInterval(troca,tempoTroca);
+        }
+
+        function troca(){  //incrementa a variavel imgAtual e vai chamar a função carregarImg, fazendo controle em imgAtual
+            imgAtual++; //para carregar a proxima
+            if(imgAtual>maxImg){
+                imgAtual=0;
+            }
+            carregarImg(imgAtual);
+        }
+
+        window.addEventListener("load",inicia); //quando a pagina estiver carregada, chama a função inicia
+
+
+    </script>
+</head>
+<body> 
+    <div id="dvslider"></div>
+</body>
+</html>
