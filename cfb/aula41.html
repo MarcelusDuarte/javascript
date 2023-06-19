@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style>
+        #dvslider{
+            width: 1000px;
+            height: 300px;
+            border: 1px solid #000;
+            display: flex;
+            justify-content: space-between; /*distribuição dos elementos dentro da div*/
+            align-items: center;
+        }
+
+        .btSlider{
+            background-color: rgba(0,0,0,0.4);
+            height: 30%; /*nao configura largura. Usa a largura da fonte */
+            color: #fff;
+            cursor: pointer; /*aparecer a maozinha*/
+            outline: none; /*sumir com a borda mesmo quando clicar*/
+            margin: 10px;
+            border: none;
+        }
+
+        #dvload{
+            width: 100%;
+            height: 5px;
+            margin-top: 25%;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        #dvbarra{
+            width: 0%; /*o loading começa em 0%*/
+            height: 100%; /*se aumentar a altura da dvload, a barra aumenta proporcionalmente*/
+            background-color: #fff;
+
+        }
+    </style>
+    <script>
+        
+        var imgs=[];
+        var slider;
+        var imgAtual; 
+        var maxImg; 
+        var tmp;
+        var tempoTroca;
+        var vtempo;
+        var vbarra;
+
+        function preCarregamento(){
+            var s=1;
+            for(var i=0;i<5;i++){
+                imgs[i]=new Image();  
+                imgs[i].src="imgs/s"+s+".jpg";  
+                s++;
+            }
+        }
+
+        
+        function carregarImg(img){
+            slider.style.backgroundImage="url('"+imgs[img].src+"')";
+        }
+
+        function inicia(){  
+            preCarregamento(); 
+            imgAtual=0;  
+            maxImg=imgs.length-1; 
+            slider=document.getElementById("dvslider"); 
+            vbarra=document.getElementById("dvbarra");
+            carregarImg(imgAtual);
+            tempoTroca=0; /*não mais referente a setInterval. Vai ser a inicialização da contagem do tempo. Vai servir como contador para o tempo */
+            anima();
+        }
+
+        function anima(){ //controlar a animação de todo o processo. Incrementa o tempoTroca
+            tempoTroca++;
+            if(tempoTroca >= 500){  /*500 foi determinado agora. Pode alterar*/
+                tempoTroca=0;
+                troca(1); /*no automatico, sempre troca pro proximo(pra direita)*/
+            }
+            vtempo=tempoTroca/5; /*/5 poque trabalhamos com a largura da barra e temos o tempo como 500. Precisamos que tempo seja relativo a 0% a 100% (100% é tempo 500). Se tempo fosse 1000, dividiria por 10*/
+            vbarra.style.width=vtempo+"%";
+            window.requestAnimationFrame(anima);
+        }
+
+        /*implementando função troca através dos botoes*/
+        function troca(dir){   /*dir vai informar a direção da troca (-1 troca para a esquerda e +1 troca para a direita*/
+            tempoTroca=0;  /*como é contador, toda vez que fizer a troca eu zero a contagem do tempo*/
+            imgAtual+=dir;  /*consigo indicar a proxima imagem*/
+            if(imgAtual>maxImg){ /*se estiver na ultima imagem e clicar para direita, ele pega a primeira imagem*/
+                imgAtual=0;
+            }else if(imgAtual<0){  /*se estiver na primeira imagem e clicar para esquerda, ele pega a ultima imagem*/
+                imgAtual=maxImg;
+            }
+            carregarImg(imgAtual);
+        }
+
+        window.addEventListener("load",inicia); 
+
+
+    </script>
+</head>
+<body> 
+    <div id="dvslider">
+        <button class="btSlider" onclick="troca(-1)"><</button>
+        <div id="dvload"> <!--implementando barra de loading-->
+            <div id="dvbarra"></div> <!--barra de loading-->
+        </div>
+        <button class="btSlider" onclick="troca(1)">></button>
+    </div>
+    
+</body>
+</html>
