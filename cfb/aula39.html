@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style>
+        table{
+            border-collapse: collapse;
+        }
+
+        table,td,tr,th {
+            border: 1px solid #000;
+        }
+    </style>
+    
+</head>
+<body> 
+    <!--Formatando as tabelas para quando o resultado for > 70, as notas ficam azuis. Qdo < 70, as notas ficam vermelhas-->
+   <div id="titulo"></div>
+   <table id="tbnotas">
+        <th>Alunos</th><th>Nota 1</th><th>Nota 2</th><th>Resultado</th>
+        <tr>
+            <td>A11</td><td>37</td><td>35</td><td id="n1"></td>
+        </tr>
+        <tr>
+            <td>A12</td><td>50</td><td>50</td><td id="n2"></td>
+        </tr>
+        <tr>
+            <td>A13</td><td>50</td><td>32.7</td><td id="n3"></td>
+        </tr>
+        <tr>
+            <td>A14</td><td>25</td><td>45</td><td id="n4"></td>
+        </tr>
+   </table>
+   <script>
+        //obtendo notas de forma dinamica. Para isso, temos que apagar os resultados
+        var tabela=document.getElementById("tbnotas");
+        var nota; // somatorio das notas
+
+        for(var i=1;i<tabela.rows.length;i++){  //percorrendo as linhas da tabela aplicando as notas e colocando resultado na ultima coluna (i começa em 1 para não pegar a primeira linha, que são os titulos das colunas)
+            nota=parseFloat(tabela.rows[i].cells[1].innerHTML)+parseFloat(tabela.rows[i].cells[2].innerHTML); //o innerHTML retorna texto. Usamos parseFloat para converter para numero e usar valor decimal
+            tabela.rows[i].cells[3].innerHTML=nota; //atribui a ultima celula o valor da soma
+        }
+
+        //para capturar os objetos, podemos capturar objetos para cada nota (ruim quando forem muitos objetos), ou usarmos array ( cada posição, uma nota)
+        var n=[]; //adicionando cada id em cada posição do array
+        n[0]=document.getElementById("n1");
+        n[1]=document.getElementById("n2");
+        n[2]=document.getElementById("n3");
+        n[3]=document.getElementById("n4");
+
+        //lendo os valores usando innerHTML ( podemos escrever, adicionando conteudo na tag ou ler o conteudo da tag)
+        // n[0].innerHTML="0"; //escrevendo(alterando) conteudo na tag
+        //alert(n[0].innerHTML); //lendo o conteudo da tag
+        //FORMATAÇÃO CONDICIONAL
+        for(var i=0;i<4;i++){  //lendo todos os elementos do array
+            if(n[i].innerHTML < 70){
+                n[i].style.color="#f00";
+            }else{
+                n[i].style.color="#00f";
+            }
+        }  
+
+
+
+
+   </script>
+
+</body>
+</html>
