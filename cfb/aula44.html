@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style>
+       
+    </style>
+    
+    
+</head>
+<body>  
+    <p id="txt">CFB Cursos - Curso de Javascript - aula 43 do curso de javascript</p>
+
+    <script>
+
+        var texto=document.getElementById("txt").innerHTML;
+
+        /*
+        var res=texto.search(/curso/i);  //retorna a POSIÇÃO que começa a primeira ocorrencia encontrada
+        document.write(res); */
+        
+        /*
+        var res=texto.search(/aula/i);  //retorna a POSIÇÃO que começa a primeira ocorrencia encontrada
+        document.write(res); */
+
+        /*
+        var res=texto.replace(/curso/i, "aula");  // substitui a primeira palavra CURSO encontrada por AULA. Se quiser substituir todas as ocorrencias CURSO, usa /curso/ig
+        document.write(res); */
+
+        /*
+        var res=texto.charAt(11);  //retorna o caracter que eu indiquei a posição como parametro do metodo
+        document.write(res); */
+
+        /*
+        var res=texto.charCodeAt(0);  //retorna o codigo ASCII do caracter que eu indiquei a posição como parametro
+        document.write(res + "<br>"); 
+        document.write(String.fromCharCode(67)+"<br>"); //retorna o caracter cujo codigo ASCII foi informado
+        document.write(String.fromCharCode(res)); */
+
+        var txt2=" - Metodos de manipulação de strings"
+        var res=texto.concat(txt2);  //junta a string TEXTO com a string TXT2.
+        var res=texto.concat(txt2 + " - aula P2"); //pode concatenar varias strings. Se quiser, posso deletar a variavel TXT2 e inserir a string direto entre "".
+        document.write(res); 
+       
+
+
+
+
+    </script>
+
+
+</body>
+</html>
