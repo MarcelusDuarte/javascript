@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style>
+       
+    </style>
+    
+    
+</head>
+<body>  
+    <p id="txt">CFB Cursos - Curso de Javascript - aula 43 do curso de javascript</p>
+
+    <script>
+
+        var texto=document.getElementById("txt").innerHTML;
+
+        /*
+        var res=texto.match(/Javascript/ig);
+        //document.write(res.length);  //com o length, retorna o numero de palavras encontradas
+        document.write(res + ":" + res.length + "<br>");
+        document.write(res[1] + "<br>");
+        */
+
+        /*
+        var res=texto.match(/o/ig);  //pesquisa por quantas letras o existem na string
+        document.write(res + ":" + res.length + "<br>");
+        document.write(res[1]);*/
+
+        /*
+        var res=texto.match(/[oa]/ig);  //pesquisa por quantas letras o e a existem na string, na ordem. Pode colocar mais letras e pode separar cada uma por |
+        document.write(res + ":" + res.length + "<br>");
+        document.write(res[1]);*/
+
+        /*
+        var res=texto.match(/[^oa]/ig);  //pesquisa por todos os caracteres (menos O e A) existem na string
+        document.write(res + " : " + res.length + "<br>");
+        document.write(res[1]);*/
+
+        /*
+        var res=texto.match(/[a-g]/ig);  //pesquisa por todos os caracteres que estão entre as letras A e G. Se colocar o ^, a pesquisa começa no H.
+        document.write(res + " : " + res.length + "<br>");
+        document.write(res[1]); */
+
+        var res=texto.match(/\d/ig);  // \d pesquisa por todos os numerais na string. Existem varios outros caracteres para esse tipo de pesquisa
+        document.write(res + " : " + res.length + "<br>");
+        document.write(res[1]);
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+</body>
+</html>
