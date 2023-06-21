@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style>
+       
+    </style>
+    
+    
+</head>
+<body>  
+    <p id="txt">CFB Cursos - Curso de Javascript - aula 43 do curso de javascript</p>
+
+    <script>
+
+        var texto=document.getElementById("txt").innerHTML;
+        
+        //var res=texto1.indexOf("C"); //retorna a posição do caracter especificado. Se nao encontrar o caracter, retorna -1
+
+        //var res=texto1.lastIndexOf("C");  //retorna a posição do ultimo caracter especificado que foi encontrado na string
+
+        //var res=texto1.localeCompare(texto2);  //compara 2 strings. Se forem iguais, retorna 0. Se forem diferentes, retorna !=0 (1).
+
+        //var res=texto.slice(22,32);  //corta a string em pontos especificos. Necessário informar onde inicia o corte e onde finaliza o corte (bom para recortar palavras da string)
+
+        //var res=texto.split(" "); //vai picar a string no caracter indicado. Cada pedaço separado é armazenado num vetor
+        //document.write(res[5]);
+
+        //var res=texto.substr(4,6);  //indico posição inicial e tamanho do corte
+        //document.write(res);
+
+        var res=texto.toUpperCase().substr(22,10);  
+        document.write(res);
+
+
+        
+    </script>
+
+
+</body>
+</html>
