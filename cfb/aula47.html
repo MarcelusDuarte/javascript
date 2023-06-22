@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style>
+       .letra{
+        width:30px;
+        font-size:30px;
+        text-transform: uppercase;
+        text-align: center;
+        margin: 5px;
+        display: none;
+       }
+
+       .letraJ{
+        width:30px;
+        font-size:30px;
+        text-transform:uppercase;
+        text-align:center;
+        margin:5px;
+       }
+
+       .dvdisplay{
+        display:block;
+       }
+
+       #dvForca{
+        position:absolute;
+        left:150px;
+       }
+
+       #cabeca{
+        position:absolute;
+        top:0px;
+        left:0px;
+       }
+
+       #corpo{
+        position:absolute;
+        top:250px;
+        left:4px;
+       }
+
+       #bracoE{
+        position:absolute;
+        top:245px;
+        left:0px;
+       }
+
+       #bracoD{
+        position:absolute;
+        top:245px;
+        left:45px;
+       }
+
+       #pernaE{
+        position:absolute;
+        top:440px;
+        left:-55px;
+       }
+
+       #pernaD{
+        position:absolute;
+        top: 445px;
+        left: 78px;
+       }
+    </style>
+    <script>
+
+        var biblioteca=["javascript","curso","computador","transporte","livraria","tecnologia","controle","churrasco","brasil","impressora","xicara","telefone","internet","camera","monitor","brinquedo","youtube","portaria","escola","carnaval","teclado","guitarra","bateria","chinelo","helicoptero","arduino"];
+        var qtde=biblioteca.length-1;  //quantas palavras tenho na biblioteca
+        var pos=Math.round(Math.random()*qtde);  //armazenar numero aleatorio entre 0 e a qtde de palavras
+        var palavra=biblioteca[pos]; //recebe palavra sorteada na biblioteca
+        var tam=palavra.length;
+        var cxLetras=[];
+        var acertos;
+        var errosMax=7;
+        var erros=0;  //qtde de erros do usuario
+        var desenhos=[];  //variavel com as peças do desenho
+        var acertou=false;
+        var jogando=false;  //se o jogo continua executando
+
+        function defineLetras(L){  //mostra somente as letras da palavra conforme variavel tam.
+            var obj;
+            for(var i=0;i<20;i++){
+                obj=document.getElementById("letra"+i).value=""; //reseta o que tiver nas letras
+                obj=document.getElementById("letra"+i).style.display="none"; //defino todas as letras como none
+            }
+            for(var i=0;i<L;i++){ //desenha a peça de acordo com o numero de erros
+                obj=document.getElementById("letra"+i).style.display="inline-block"; //mostra somente as letras necessarias
+            }
+        }
+
+        function jogar(){  //onde acontece toda a rotina de testes do jogo
+            jog=document.getElementById("letraJ"); //define elemento com a letra do jogador
+            jog.focus();
+            if(jog.value==""){  //verifico se não foi digitado letra 
+                alert("Digite uma letra");
+            }else{
+                if(jogando){ //verifica se o jogo está em andamento, se não está parado. Se for true, faz as rotinas
+                    var jog; //pode ser definido junto com as variaveis globais e eliminar a linha 98
+                    var obj;
+                    var letraTmp;
+                    var letra;
+                    var pesq;
+                    letra=jog.value;  //recebe letra digitada no campo do jogador
+                    jog.value=""; //depois de armazenar, limpou o conteudo do campo
+                    acertou=false;
+                    pesq=palavra.match(letra);  //verifica se a letra aparece na palavra escolhida
+                    
+                    while(pesq!=null){ //se diferente, significa que encontrou ocorrencia da letra na palavra
+                        letraTmp=palavra.search(letra); //pesquisa a letra na palavra(posição) e armazena em letraTmp
+                        obj=document.getElementById("letra"+letraTmp).value=letra; //armazeno na posição da letra, a letra que foi digitada.
+                        palavra=palavra.replace(letra,'0'); //substitui o caracter letra pelo 0 para não dar como ocorrencia novamente. Enquanto pesquisa encontrar a letra, continua dentro do while.
+                        acertos++;
+                        pesq=palavra.match(letra); //pesquisa novamente
+                        acertou=true; //encontrou uma ou mais letras
+                    }
+                    if(!acertou){ //se nao acertou...
+                        document.getElementById("dvletrasdigitadas").innerHTML+=letra.toUpperCase()+""; //adiciona a letra escolhida no texto pois houve o erro
+                        erros++; //incrementa o erro se nao acertou
+                        if(erros<7){
+                            desenhos[erros].style.display="block"; //mostra uma peça do desenho
+                        }else{
+                            document.getElementById("cabeca").src="imgs/cabeca2.png";
+                            document.getElementById("dvmsg").innerHTML="PERDEU !";
+                            jogando=false;
+                        }
+                    }
+                    if(acertos==tam){ //verifica se numero de acertos tem o tamanho da palavra. Se for, acertou todas as letras
+                        document.getElementById("dvmsg").innerHTML=""; //apaga o conteudo
+                        document.getElementById("dvmsg").innerHTML="GANHOU !"; //mostra mensagem e para o jogo
+                        jogando=false; //se ganhou o jogo acabou. Impede que faça a rotina com o jogo parado
+                    }
+                }
+            }
+        }
+
+        function inicia(){  //inicializa as variaveis e prepara elementos para novo jogo
+            jogando=true;  //jogo em execução
+            jog=document.getElementById("letraJ"); // recebe a letra do jogador
+            jog.value="";
+            jog.focus(); //cursor nela
+            acertos=0;
+            erros=0;
+            acertou=false;
+            document.getElementById("dvletrasdigitadas").innerHTML="Letras Digitadas:"; //jogador pode reinicar ou jogar novamente. Quando isso acontece, zera esse campo
+            pos=Math.round(Math.random()*qtde); //sorteio da palavra
+            palavra=biblioteca[pos];
+            tam=palavra.length;
+            defineLetras(tam);  //defineLetras com o tamanho da palavra sorteada
+            document.getElementById("dvmsg").innerHTML=""; //define o texto da div como vazio para poder aparecer as msgs GANHOU ou PERDEU.
+            desenhos[1]=document.getElementById("cabeca"); //adicionando todos os desenhos do array desenhos.
+            desenhos[2]=document.getElementById("corpo");
+            desenhos[3]=document.getElementById("bracoE");
+            desenhos[4]=document.getElementById("bracoD");
+            desenhos[5]=document.getElementById("pernaE");
+            desenhos[6]=document.getElementById("pernaD");
+            document.getElementById("cabeca").src="imgs/cabeca1.png"; //tem 2 imagens para cabeca. 1 quando ganha e outra quando perde.
+            for(var i=1;i<7;i++){
+                desenhos[i].style.display="none"; //oculto todas as peças caso seja um novo jogo
+            }
+        }
+
+        function dica(){
+            alert(palavra);
+            jog.focus();
+        }
+
+        window.addEventListener("load",inicia);
+
+    </script>
+    
+    
+</head>
+<body>  
+
+    <div id="dvmenu" class="dvdisplay">
+        <button onclick="inicia()">Nova Palavra</button>
+    </div>
+    <div id="dvpalavra" class="dvdisplay">
+        <input type="text" id="letra0" class="letra" maxlength="1">
+        <input type="text" id="letra1" class="letra" maxlength="1">
+        <input type="text" id="letra2" class="letra" maxlength="1">
+        <input type="text" id="letra3" class="letra" maxlength="1">
+        <input type="text" id="letra4" class="letra" maxlength="1">
+        <input type="text" id="letra5" class="letra" maxlength="1">
+        <input type="text" id="letra6" class="letra" maxlength="1">
+        <input type="text" id="letra7" class="letra" maxlength="1">
+        <input type="text" id="letra8" class="letra" maxlength="1">
+        <input type="text" id="letra9" class="letra" maxlength="1">
+        <input type="text" id="letra10" class="letra" maxlength="1">
+        <input type="text" id="letra11" class="letra" maxlength="1">
+        <input type="text" id="letra12" class="letra" maxlength="1">
+        <input type="text" id="letra13" class="letra" maxlength="1">
+        <input type="text" id="letra14" class="letra" maxlength="1">
+        <input type="text" id="letra15" class="letra" maxlength="1">
+        <input type="text" id="letra16" class="letra" maxlength="1">
+        <input type="text" id="letra17" class="letra" maxlength="1">
+        <input type="text" id="letra18" class="letra" maxlength="1">
+        <input type="text" id="letra19" class="letra" maxlength="1">
+    </div>
+    <div id="dvjogador" class="dvdisplay">
+        <div id="controlesJogador">
+            <input type="text" id="letraJ" class="letraJ" maxlength="1">
+            <button onclick="jogar()">Jogar</button>
+            <button onclick="dica()">Dica</button>
+            <div id="dvmsg"></div><br>
+            <div id="dvletrasdigitadas">Letras Digitadas:</div>
+        </div>
+        <div id="dvForca">
+            <img id="cabeca" src="imgs/cabeca1.png">
+            <img id="corpo" src="imgs/corpo.png">
+            <img id="bracoE" src="imgs/bracoE.png">
+            <img id="bracoD" src="imgs/bracoD.png">
+            <img id="pernaE" src="imgs/pernaE.png">
+            <img id="pernaD" src="imgs/pernaD.png">
+        </div>
+
+    </div>
+
+</body>
+</html>
