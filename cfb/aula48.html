@@ -22,6 +22,9 @@
             padding: 0px;
             cursor: pointer;
             display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
         }
 
         #p1{
@@ -75,7 +78,120 @@
     </style>
     <script>
 
-       
+        var jogo=[]; //recebe o controle do jogo. Guarda as posições das jogadas. Se tem X ou 0 e as posições vazias
+        var tabuleiro=[]; //controla os elementos visuais. Quando jogada for realizada, verifica no array jogo e atualiza o array tabuleiro.
+        var quemJoga=0; //0->jogador  -  1->CPU. Para saber quem joga na vez
+        var verifica; // armazena resultado de função criada que verifica se houve vencedou ou não
+        var jogando=true; //indica se jogo esta em execução ou não. Inicia a pagina com jogo em execução (true). Se jogo parar (false). Alguem ganhou e coloca variavel em false.
+        var nivel=1; //niveis de dificuldade iniciando no 1
+        var jogadaCpu=1; //indica qual jogada da CPU. A primeira é aleatoria. Deve funcionar no nivel 3.
+        var quemComeca=1; // se começa pelo jogador ou pela CPU. Podemos usar um random para sortear quem começa
+
+        //implementar a jogada do jogador. Quando clicar ele marca a jogada com X(letra do jogador). Pode começar em qq campo
+        function jogar(p){ //parametro posição. Jogada do jogador. Usa a mesma função em todos os campos. Usamos os ids dos elementos (colocamos a função no onclick dos elementos)
+            //verificações para validar as jogadas
+            if((jogando)&&(quemJoga==0)){  //verifica: O jogo está em execução? quem joga é o jogador? 
+                //validando a posição do jogador. Podemos usar conj de IFs ou SWITCH
+                switch(p){  //recebe a posiçao jogada (P)
+                    case 1: //testar todas as posições da mesma forma
+                       if(jogo[0][0]==""){  //verifica se a posição pode ser jogada. Associa cada posição a uma posição do array jogo (ver no final do codigo as posições). Precisamos antes dos testes, iniciar a matriz de jogo. Linhas e colunas
+                            jogo[0][0]="X";  //se jogo na posição 0,0 está vazio, pode jogar. Jogador usa a letra X
+                            quemJoga=1;  //passa a jogada para a CPU
+                       }
+                    break;
+                    case 2:
+                        if(jogo[0][1]==""){  
+                            jogo[0][1]="X";  
+                            quemJoga=1;  
+                        }
+                    break;
+                    case 3:
+                        if(jogo[0][2]==""){  
+                            jogo[0][2]="X";  
+                            quemJoga=1;  
+                        }
+                    break;
+                    case 4:
+                        if(jogo[1][0]==""){  
+                            jogo[1][0]="X";  
+                            quemJoga=1;  
+                        }
+                    break;
+                    case 5:
+                        if(jogo[1][1]==""){  
+                            jogo[1][1]="X";  
+                            quemJoga=1;  
+                        }
+                    break;
+                    case 6:
+                        if(jogo[1][2]==""){  
+                            jogo[1][2]="X";  
+                            quemJoga=1;  
+                        }
+                    break;
+                    case 7:
+                        if(jogo[2][0]==""){  
+                            jogo[2][0]="X";  
+                            quemJoga=1;  
+                        }
+                    break; 
+                    case 8:
+                        if(jogo[2][1]==""){  
+                            jogo[2][1]="X";  
+                            quemJoga=1;  
+                        }
+                    break;
+                    case 9: //podemos deixar como default
+                        if(jogo[2][2]==""){  
+                            jogo[2][2]="X";  
+                            quemJoga=1;  
+                        }
+                    break;
+                      
+                }
+                atualizaTabuleiro();
+            }
+        }
+
+        function atualizaTabuleiro(){  //atualizar o visual com as jogadas de acordo com a matriz de jogo. Não precisa de parametro. Chamada apos cada jogada(tanto do jogador quanto da CPU). Vamos percorrer a matriz jogo e atualizar a matriz tabuleiro de acordo com a matriz jogo
+            for(var linha=0;linha<3;linha++){  //for para percorrer as linhas
+                for(var coluna=0;coluna<3;coluna++){ //for para percorrer as colunas dentro de cada linha
+                    if(jogo[linha][coluna]=="X"){ //se posição for X
+                        tabuleiro[linha][coluna].innerHTML="X";  //atualiza o tabuleiro da mesma posição (visual)
+                        tabuleiro[linha][coluna].style.cursor="default"; //muda o cursor para seta(inicializamos com maozinha). Quando posição jogada muda cursor
+                    }else if(jogo[linha][coluna]=="0"){ //se posição for 0
+                        tabuleiro[linha][coluna].innerHTML="0";  //muda desenho para 0
+                        tabuleiro[linha][coluna].style.cursor="default";
+                    }else{  // se não for X nem 0, limpa o tabuleiro
+                        tabuleiro[linha][coluna].innerHTML="";
+                        tabuleiro[linha][coluna].style.cursor="pointer";
+                    }
+
+                }
+            }
+
+
+        }
+
+        function inicia(){ //inicia a matriz de jogo
+            jogando=true; //jogo em execução
+            jogadaCpu=1; //primeira jogada da CPU (serve para a inteligencia)
+            jogo=[     //inicializa o tabuleiro. Tem que zerar tudo na matriz
+                ["","",""],  //posições mostradas no final do codigo
+                ["","",""],
+                ["","",""]
+            ];
+            tabuleiro=[  //associação dos elementos visuais com a matriz tabuleiro
+                [document.getElementById("p1"),document.getElementById("p2"),document.getElementById("p3")],
+                [document.getElementById("p4"),document.getElementById("p5"),document.getElementById("p6")],
+                [document.getElementById("p7"),document.getElementById("p8"),document.getElementById("p9")]
+            ];
+        }
+
+        window.addEventListener("load",inicia);
+    </script>
+
+
     </script>
     
     
@@ -87,16 +203,23 @@
         <button onclick="">Iniciar Jogo</button>
     </div>
     <div id="dvjogo">
-        <div id="p1" class="posJogo" onclick="" ></div> 
-        <div id="p2" class="posJogo" onclick="" ></div>
-        <div id="p3" class="posJogo" onclick="" ></div>
-        <div id="p4" class="posJogo" onclick="" ></div>
-        <div id="p5" class="posJogo" onclick="" ></div>
-        <div id="p6" class="posJogo" onclick="" ></div>
-        <div id="p7" class="posJogo" onclick="" ></div>
-        <div id="p8" class="posJogo" onclick="" ></div>
-        <div id="p9" class="posJogo" onclick="" ></div>       
+        <div id="p1" class="posJogo" onclick="jogar(1)" ></div> 
+        <div id="p2" class="posJogo" onclick="jogar(2)" ></div>
+        <div id="p3" class="posJogo" onclick="jogar(3)" ></div>
+        <div id="p4" class="posJogo" onclick="jogar(4)" ></div>
+        <div id="p5" class="posJogo" onclick="jogar(5)" ></div>
+        <div id="p6" class="posJogo" onclick="jogar(6)" ></div>
+        <div id="p7" class="posJogo" onclick="jogar(7)" ></div>
+        <div id="p8" class="posJogo" onclick="jogar(8)" ></div>
+        <div id="p9" class="posJogo" onclick="jogar(9)" ></div>       
     </div>
     
 </body>
 </html>
+
+
+<!--Posições do jogo
+    0,0 | 0,1 | 0,2
+    1,0 | 1,1 | 1,2
+    2,0 | 2,1 | 2,2
+-->
