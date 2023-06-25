@@ -83,9 +83,210 @@
         var quemJoga=0; //0->jogador  -  1->CPU. Para saber quem joga na vez
         var verifica; // armazena resultado de função criada que verifica se houve vencedou ou não
         var jogando=true; //indica se jogo esta em execução ou não. Inicia a pagina com jogo em execução (true). Se jogo parar (false). Alguem ganhou e coloca variavel em false.
-        var nivel=1; //niveis de dificuldade iniciando no 1
+        var nivel=2; //niveis de dificuldade iniciando no 1
         var jogadaCpu=1; //indica qual jogada da CPU. A primeira é aleatoria. Deve funcionar no nivel 3.
         var quemComeca=1; // se começa pelo jogador ou pela CPU. Podemos usar um random para sortear quem começa
+        var jogada=0;
+
+        //fazendo a CPU jogar
+        function cpuJoga(){ //vamos implementar 2 niveis. O primeiro são jogadas aleatorias. O segundo analisando as jogadas do jogador
+            if(jogando){ //se jogo em execução, vamos implementar todas as rotinas do jogador
+               var l,c;
+               if(nivel==1) { //vai sortear linha e coluna. Se posição estiver vazia, realiza a jogada. Se não, sorteia novamente
+                   do{  //implemanta do/while para executar a rotina e verificar depois. Primeiro sorteia as posições e depois verifica a jogada
+                    l=Math.round(Math.random()*2); //sorteando as posições para linha e coluna
+                    c=Math.round(Math.random()*2);
+                   }while(jogo[l][c]!="");
+                   jogo[l][c]="0";
+               }else if(nivel==2){
+                    //ATAQUE DA CPU Verifica as posições da cpu para decidir onde jogar
+                    //Jogadas linha 1
+                    if((jogo[0][0]=="0")&&(jogo[0][1]=="0")&&(jogo[0][2]=="")){
+                        jogo[0][2]="0";
+                    }else if((jogo[0][0]=="0")&&(jogo[0][1]=="")&&(jogo[0][2]=="0")){
+                        jogo[0][1]="0";
+                    }else if((jogo[0][0]=="")&&(jogo[0][1]=="0")&&(jogo[0][2]=="0")){
+                        jogo[0][0]="0";
+                    }else
+                    //Jogadas linha 2
+                    if((jogo[1][0]=="0")&&(jogo[1][1]=="0")&&(jogo[1][2]=="")){
+                        jogo[1][2]="0";
+                    }else if((jogo[1][0]=="0")&&(jogo[1][1]=="")&&(jogo[1][2]=="0")){
+                        jogo[1][1]="0";
+                    }else if((jogo[1][0]=="")&&(jogo[1][1]=="0")&&(jogo[1][2]=="0")){
+                        jogo[1][0]="0";
+                    }else
+                    //Jogadas linha 3
+                    if((jogo[2][0]=="0")&&(jogo[2][1]=="0")&&(jogo[2][2]=="")){
+                        jogo[2][2]="0";
+                    }else if((jogo[2][0]=="0")&&(jogo[2][1]=="")&&(jogo[2][2]=="0")){
+                        jogo[2][1]="0";
+                    }else if((jogo[2][0]=="")&&(jogo[2][1]=="0")&&(jogo[2][2]=="0")){
+                        jogo[0][0]="0";
+                    }else
+                    //Jogadas coluna 1
+                    if((jogo[0][0]=="0")&&(jogo[1][0]=="0")&&(jogo[2][0]=="")){
+                        jogo[2][0]="0";
+                    }else if((jogo[0][0]=="0")&&(jogo[1][0]=="")&&(jogo[2][0]=="0")){
+                        jogo[1][0]="0";
+                    }else if((jogo[0][0]=="")&&(jogo[1][0]=="0")&&(jogo[2][0]=="0")){
+                        jogo[0][0]="0";
+                    }else
+                    //Jogadas coluna 2
+                    if((jogo[0][1]=="0")&&(jogo[1][1]=="0")&&(jogo[2][1]=="")){
+                        jogo[2][1]="0";
+                    }else if((jogo[0][1]=="0")&&(jogo[1][1]=="")&&(jogo[2][1]=="0")){
+                        jogo[1][1]="0";
+                    }else if((jogo[0][1]=="")&&(jogo[1][1]=="0")&&(jogo[2][1]=="0")){
+                        jogo[0][1]="0";
+                    }else
+                    //Jogadas coluna 3
+                    if((jogo[0][2]=="0")&&(jogo[1][2]=="0")&&(jogo[2][2]=="")){
+                        jogo[2][2]="0";
+                    }else if((jogo[0][2]=="0")&&(jogo[1][2]=="")&&(jogo[2][2]=="0")){
+                        jogo[1][2]="0";
+                    }else if((jogo[0][2]=="")&&(jogo[1][2]=="0")&&(jogo[2][2]=="0")){
+                        jogo[0][2]="0";
+                    }else
+                    //Jogadas diagonal 1
+                    if((jogo[0][0]=="0")&&(jogo[1][1]=="0")&&(jogo[2][2]=="")){
+                        jogo[2][2]="0";
+                    }else if((jogo[0][0]=="0")&&(jogo[1][1]=="")&&(jogo[2][2]=="0")){
+                        jogo[1][1]="0";
+                    }else if((jogo[0][0]=="")&&(jogo[1][1]=="0")&&(jogo[2][2]=="0")){
+                        jogo[0][0]="0";
+                    }else
+                    //Jogadas diagonal 2
+                    if((jogo[0][2]=="0")&&(jogo[1][1]=="0")&&(jogo[2][0]=="")){
+                        jogo[2][0]="0";
+                    }else if((jogo[0][2]=="0")&&(jogo[1][1]=="")&&(jogo[2][0]=="0")){
+                        jogo[1][1]="0";
+                    }else if((jogo[0][2]=="")&&(jogo[1][1]=="0")&&(jogo[2][0]=="0")){
+                        jogo[0][2]="0";
+                    }else
+                    //DEFESA DA CPU Verifica a posição do jogador para decidir onde jogar e se defender
+                    //Jogadas linha 1
+                    if((jogo[0][0]=="X")&&(jogo[0][1]=="X")&&(jogo[0][2]=="")){
+                        jogo[0][2]="0";
+                    }else if((jogo[0][0]=="X")&&(jogo[0][1]=="")&&(jogo[0][2]=="X")){
+                        jogo[0][1]="0";
+                    }else if((jogo[0][0]=="")&&(jogo[0][1]=="X")&&(jogo[0][2]=="X")){
+                        jogo[0][0]="0";
+                    }else
+                    //Jogadas linha 2
+                    if((jogo[1][0]=="X")&&(jogo[1][1]=="X")&&(jogo[1][2]=="")){
+                        jogo[1][2]="0";
+                    }else if((jogo[1][0]=="X")&&(jogo[1][1]=="")&&(jogo[1][2]=="X")){
+                        jogo[1][1]="0";
+                    }else if((jogo[1][0]=="")&&(jogo[1][1]=="X")&&(jogo[1][2]=="X")){
+                        jogo[1][0]="0";
+                    }else
+                    //Jogadas linha 3
+                    if((jogo[2][0]=="X")&&(jogo[2][1]=="X")&&(jogo[2][2]=="")){
+                        jogo[2][2]="0";
+                    }else if((jogo[2][0]=="X")&&(jogo[2][1]=="")&&(jogo[2][2]=="X")){
+                        jogo[2][1]="0";
+                    }else if((jogo[2][0]=="")&&(jogo[2][1]=="X")&&(jogo[2][2]=="X")){
+                        jogo[0][0]="0";
+                    }else
+                    //Jogadas coluna 1
+                    if((jogo[0][0]=="X")&&(jogo[1][0]=="X")&&(jogo[2][0]=="")){
+                        jogo[2][0]="0";
+                    }else if((jogo[0][0]=="X")&&(jogo[1][0]=="")&&(jogo[2][0]=="X")){
+                        jogo[1][0]="0";
+                    }else if((jogo[0][0]=="")&&(jogo[1][0]=="X")&&(jogo[2][0]=="X")){
+                        jogo[0][0]="0";
+                    }else
+                    //Jogadas coluna 2
+                    if((jogo[0][1]=="X")&&(jogo[1][1]=="X")&&(jogo[2][1]=="")){
+                        jogo[2][1]="0";
+                    }else if((jogo[0][1]=="X")&&(jogo[1][1]=="")&&(jogo[2][1]=="X")){
+                        jogo[1][1]="0";
+                    }else if((jogo[0][1]=="")&&(jogo[1][1]=="X")&&(jogo[2][1]=="X")){
+                        jogo[0][1]="0";
+                    }else
+                    //Jogadas coluna 3
+                    if((jogo[0][2]=="X")&&(jogo[1][2]=="X")&&(jogo[2][2]=="")){
+                        jogo[2][2]="0";
+                    }else if((jogo[0][2]=="X")&&(jogo[1][2]=="")&&(jogo[2][2]=="X")){
+                        jogo[1][2]="0";
+                    }else if((jogo[0][2]=="")&&(jogo[1][2]=="X")&&(jogo[2][2]=="X")){
+                        jogo[0][2]="0";
+                    }else
+                    //Jogadas diagonal 1
+                    if((jogo[0][0]=="X")&&(jogo[1][1]=="X")&&(jogo[2][2]=="")){
+                        jogo[2][2]="0";
+                    }else if((jogo[0][0]=="X")&&(jogo[1][1]=="")&&(jogo[2][2]=="X")){
+                        jogo[1][1]="0";
+                    }else if((jogo[0][0]=="")&&(jogo[1][1]=="X")&&(jogo[2][2]=="X")){
+                        jogo[0][0]="0";
+                    }else
+                    //Jogadas diagonal 2
+                    if((jogo[0][2]=="X")&&(jogo[1][1]=="X")&&(jogo[2][0]=="")){
+                        jogo[2][0]="0";
+                    }else if((jogo[0][2]=="X")&&(jogo[1][1]=="")&&(jogo[2][0]=="X")){
+                        jogo[1][1]="0";
+                    }else if((jogo[0][2]=="")&&(jogo[1][1]=="X")&&(jogo[2][0]=="X")){
+                        jogo[0][2]="0";
+                    }else{  //se nao tem condição de ataque nem de defesa, faz jogada "aleatoria"
+                        if(jogada<8){ //verifica se tem posições vazias contanto que o numero de jogadas seja <8. Se so tiver 1 posição vazia não faz sentido ele ficar fazendo random até acertar a posição vazia. <8 pq existem no maximo 9 jogadas
+                            do{  //existe mais de 1 casa vazia e faz o random
+                                l=Math.round(Math.random()*2);
+                                c=Math.round(Math.random()*2);
+                            }while(jogo[l][c]!="");
+                            jogo[l][c]="0";
+                        }else{  // se so tem 1 casa vazia, ele percorre a matriz jogo e verifica onde está a posição vazia
+                            for(var l=0;l<3;l++){
+                                for(var c=0;c<3;c++){
+                                    if(jogo[l][c]==""){ //achou a posição vazia, faz a jogada nessa posição
+                                        jogo[l][c]="0";
+                                    }
+                                }
+                            }
+                        }
+                    }
+               }  
+               //neste ponto temos que atualizar o tabuleiro e verificar se houve vitoria
+               verifica=verificaVitoria(); //recebe o retorno da função e armazena(X, 0 ou nada)
+               if(verifica!=""){  //se diferente de vazio, X ou 0 venceu
+                alert(verifica+" vendeu!")
+                jogando=false; //para o jogo devido a uma vitoria
+               }
+               atualizaTabuleiro();
+               jogada++;  //habilita o controle de jogadas
+               quemJoga=0; //passa a jogada para o jogador
+            }
+        }
+ 
+
+        function verificaVitoria(){ //a cada jogada do jogador ou da cpu tem que verificar se houve vencedor. São condições fixas. Completou uma linha, uma coluna ou uma diagonal, ganhou.
+            var l,c;
+            //verificando as linhas
+            for(l=0;l<3;l++){
+                if((jogo[l][0]==jogo[l][1])&&(jogo[l][1]==jogo[l][2])){  //se os 3 elementos da linha forem iguais
+                    return jogo[l][0]; //retorna o caracter (X ou 0) que está na posição [l][0] ou qq outra posição da linha(todas iguais)
+                }
+            }
+
+            //verificando as colunas
+            for(c=0;c>3;c++){
+                if((jogo[0][c]==jogo[1][c])&&(jogo[1][c]==jogo[2][c])){  //se os 3 elementos da coluna forem iguais
+                    return jogo[0][c]; //retorna o caracter ( X ou 0) que está na posição [0][c] ou qq outra posição da coluna(todas iguais)
+                }
+            }
+
+            //verificando as diagonais. Não precisa de for. São fixas
+            if((jogo[0][0]==jogo[1][1])&&(jogo[1][1]==jogo[2][2])){
+                return jogo[0][0];
+            }
+            if((jogo[0][2]==jogo[1][1])&&(jogo[1][1]==jogo[2][0])){
+                return jogo[0][2];
+            }
+            return ""; //se nenhuma das opções acontecer, retorna vazio indicando que não houve vencedor
+                
+            
+        }
+
 
         //implementar a jogada do jogador. Quando clicar ele marca a jogada com X(letra do jogador). Pode começar em qq campo
         function jogar(p){ //parametro posição. Jogada do jogador. Usa a mesma função em todos os campos. Usamos os ids dos elementos (colocamos a função no onclick dos elementos)
@@ -146,10 +347,19 @@
                             jogo[2][2]="X";  
                             quemJoga=1;  
                         }
-                    break;
-                      
+                    break;     
                 }
-                atualizaTabuleiro();
+                if(quemJoga==1){ // verificar pois posso clicar em uma opção invalida. So passa a jogada se for valida. Senão joga novamente.
+                    atualizaTabuleiro();
+                    verifica=verificaVitoria(); //recebe o retorno da função e armazena(X, 0 ou nada)
+                    if(verifica!=""){  //se diferente de vazio, X ou 0 venceu
+                        alert(verifica+" vendeu!")
+                        jogando=false; //para o jogo devido a uma vitoria
+                    }
+                    jogada++; //habilita o controle de jogada
+                    cpuJoga(); //depois da jogada do jogador, faz as verificações e chama a cpu para jogar
+                }
+                
             }
         }
 
@@ -176,6 +386,7 @@
         function inicia(){ //inicia a matriz de jogo
             jogando=true; //jogo em execução
             jogadaCpu=1; //primeira jogada da CPU (serve para a inteligencia)
+            jogada=0; //inicializa o controle de jogada
             jogo=[     //inicializa o tabuleiro. Tem que zerar tudo na matriz
                 ["","",""],  //posições mostradas no final do codigo
                 ["","",""],
@@ -186,21 +397,34 @@
                 [document.getElementById("p4"),document.getElementById("p5"),document.getElementById("p6")],
                 [document.getElementById("p7"),document.getElementById("p8"),document.getElementById("p9")]
             ];
+            atualizaTabuleiro(); //zera o tabuleiro antes de iniciar novamente(depois que alguem vencou ou empatou) e quando clicar no botao inicia
+            if(quemComeca==1){ //CPU. Ele vai inverter e vai começar o jogador
+                quemComeca=0;
+                quemJoga=quemComeca;
+                document.getElementById("dvquemComeca").innerHTML="Quem Começa: Jogador";
+            }else{ // Jogador. Ele vai inverter e vai começar com a CPU
+                quemComeca=1;
+                quemJoga=quemComeca;
+                document.getElementById("dvquemComeca").innerHTML="Quem Começa: CPU";
+                cpuJoga();
+            }
         }
 
         window.addEventListener("load",inicia);
-    </script>
-
-
+        /*Posições do jogo
+            0,0 | 0,1 | 0,2
+            1,0 | 1,1 | 1,2
+            2,0 | 2,1 | 2,2
+        */
     </script>
     
-    
+
 </head>
 <body>  
 
     <div id="dvmenu">
-        <div id="dvquemComeca"></div>
-        <button onclick="">Iniciar Jogo</button>
+        <div id="dvquemComeca">Quem Joga:</div>
+        <button onclick="inicia()">Iniciar Jogo</button>
     </div>
     <div id="dvjogo">
         <div id="p1" class="posJogo" onclick="jogar(1)" ></div> 
@@ -218,8 +442,3 @@
 </html>
 
 
-<!--Posições do jogo
-    0,0 | 0,1 | 0,2
-    1,0 | 1,1 | 1,2
-    2,0 | 2,1 | 2,2
--->
