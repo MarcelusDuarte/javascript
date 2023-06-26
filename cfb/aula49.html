@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+    <style> 
+        body{
+            margin: 0px;
+            background-color: #aaa;
+        }
+
+        #dvPainel{
+            display: flex;
+            height: 50px;
+            align-items: center;
+        }
+
+        .itemPainel{
+            margin: 5px;
+        }
+
+        #dvJogo{
+            width: 960px;
+            height: 500px;
+            background-color: #000;
+        }
+
+        #dvBola{
+            position: absolute;
+            top: 240px;
+            left: 475px;
+            width: 20px;
+            height: 20px;
+            background-color: #888;
+        }
+
+        .barra{
+            position: absolute;
+            width: 20px;
+            height: 140px;
+            background-color: #888;
+            top: 180px;
+        }
+
+        .esquerda{
+            left: 10px;
+        }
+
+        .direita{
+            left: 930px;
+        }
+        
+    </style>
+    <script>
+        //Elementos
+        var vbtIniciar;
+        var vbola;
+        var vcpu;
+        var vjogador;
+        var vpaineltxtpontos;
+        
+        //Controle de animação. Vamos usar requestanimationframe
+        var game,frames;
+
+        //Posições dos elementos. Controles de posicionamento da bola, do jogador e da cpu
+        var posBolaX,posBolaY;
+        var posJogadorX,posJogadorY;
+        var posCpuX,posCpuY; 
+
+        //Vamos movimentar pelo teclado usando eventos keyUp e keyDown e precisamos de variavel que indique que o elemento tem que subir ou descer
+        //Direção de acordo com a tecla
+        var dirJy; //direção Y do jogador
+
+        //Posições iniciais do jogador e da bola. Importante quando for reiniciar o jogo
+        var posJogIniY=180,posCpuIniY=180,posBolaIniX=475,posBolaIniY=240;
+
+        //Tamanhos do campo(largura e altura), das barras dos jogadores e da bola
+        var campoX=0,campoY=0,campoW=960,campoH=500;
+        var barraW=20,barraH=140,bolaW=20,bolaH=20;
+
+        //Direção da Cpu e da bola
+        var bolaX,bolaY;
+        var cpuY=0;
+
+        //Velocidade
+        var velBola,velCpu,velJogador;
+
+        //Controle
+        var pontos=0;
+        var tecla; //armmazena o codigo das teclas pressionadas. Vamos usar os eventos KeyUp e KeyDown para movimentar o jogador
+        jogo=false; //indica se o jogo esta em execução ou nao. Se true, está em execução e podem se movimentar
+
+        function controlajog(){ //função que controla o jogador
+            if(jogo){ //jogo em execução, vamos calcular a posição do jogador
+                posJogadorY+=velJogador*dirJy; //calcula a posição do jogador em virtude da velocidade e direção. Tem que ser incremento para poder ser executado varias vezes
+                vjogador.style.top=posJogadorY+"px";
+            }
+        }
+
+        //Implementação do teclado
+        //Pega o codigo da tecla pressionada, comparo com as teclas que quero usar e executo a ação
+        function teclaDw(){ //Chama essa função quando a tecla for pressionada. Inicia a movimentação
+            tecla=event.KeyCode;
+            if(tecla==38){ //tecla seta para cima
+                dirJy=-1;
+            }else if(tecla=40){ //tecla seta para baixo
+                dirJy=+1;
+            }
+        }
+
+        function teclaUp(){  //Chama a função quando a tecla for liberada. Para a movimentação
+            tecla=event.KeyCode;
+            if(tecla==38){ //tecla seta para cima
+                dirJy=0;
+            }else if(tecla==40){ //tecla seta para baixo
+                dirJy=0;
+            }
+        }
+
+
+        function game(){ //função para controle da animação. Vai ser chamada repetidamente e nela estão todos os controles do game(jogador, bola, cpu)
+            if(jogo){ //se jogo estiver em execução, ela recebe as funções de controle do game
+               controlajog();
+            }
+            frames=requestAnimationFrame(game); //adicionando a animação. Função recursiva
+        }
+    
+        function iniciaJogo(){ //inicia o jogo e associa o evento de clique do botao iniciar. Vamos iniciar as posições e variaveis que vamos precisar calcular. Variaveis são definidas apenas se o jogo está em execução. Para garantir isso, usamos um IF
+            if(!jogo){ //se o jogo estiver parado
+                cancelAnimationFrame(frames); //tem que cancelar assim que começa para evitar de ficar chamando uma função em cima da outra em loop.
+                jogo=true; //inicia o jogo
+                dirJy=0;
+                posBolaX=posBolaIniX;
+                posBolaY=posBolaIniY;
+                posJogadorY=posJogIniY; //jogador so se move no eixo Y
+                posCpuY=posCpuIniY; //Cpu so se move no eixo Y
+                game(); //inicializa a animação quando precionar iniciaJogo. Faz a chamada do loop de animação
+            }
+            
+        }
+        
+        function inicializa(){ //inicializa os componentes do game(as variaveis, adicionar os eventos)
+            velBola=velCpu=velJogador=8; //iniciando as variaveis de velocidade. Todas podem ter o mesmo valor inicial
+            vbtIniciar=document.getElementById("btIniciar");
+            vbtIniciar.addEventListener("click",iniciaJogo);
+            vjogador=document.getElementById("dvJogador");
+            vbola=document.getElementById("dvBola");
+            vcpu=document.getElementById("dvCpu");
+            vpaineltxtpontos=document.getElementById("txtPontos");
+            document.addEventListener("keydown",teclaDw);
+            document.addEventListener("keyup",teclaUp);
+        }
+
+        window.addEventListener("load",inicializa);
+
+    </script>
+    
+
+</head>
+<body>  
+    <div id="dvJogo">
+        <div id="dvBola"></div>
+        <div id="dvJogador" class="barra esquerda"></div>
+        <div id="dvCpu" class="barra direita"></div>
+    </div>
+    <div id="dvPainel">
+        <div class="itemPainel">
+            <label>Pontos</label>
+            <input type="text" id="txtPontos" value="0" size="10">
+        </div>
+        <div class="itemPainel">
+            <button id="btIniciar">Iniciar</button>
+        </div>
+    </div>
+</body>
+</html>
+
+
