@@ -74,7 +74,7 @@
         var dirJy; //direção Y do jogador
 
         //Posições iniciais do jogador e da bola. Importante quando for reiniciar o jogo
-        var posJogIniY=180,posCpuIniY=180,posBolaIniX=475,posBolaIniY=240;
+        var posJogIniY=180,posJogIniX=0,posCpuIniX=930,posCpuIniY=180,posBolaIniX=475,posBolaIniY=240;
 
         //Tamanhos do campo(largura e altura), das barras dos jogadores e da bola
         var campoX=0,campoY=0,campoW=960,campoH=500;
@@ -95,9 +95,39 @@
         function controlajog(){ //função que controla o jogador
             if(jogo){ //jogo em execução, vamos calcular a posição do jogador
                 posJogadorY+=velJogador*dirJy; //calcula a posição do jogador em virtude da velocidade e direção. Tem que ser incremento para poder ser executado varias vezes
+                if(((posJogadorY+barraH)>=campoH)||((posJogadorY)<=0)){ //impede que o jogador saia do campo por cima ou por baixo
+                    posJogadorY+=(velJogador*dirJy)*(-1); //quando o jogador chega no topo ou fundo do campo ele fica descendo rapido para evitar que ele saia do campo. Como é muito rapido, a sensação é que ele está parado.
+                }
                 vjogador.style.top=posJogadorY+"px";
             }
         }
+
+        function controlaBola(){ //verificar quando a bola colide com o jogador e com a cpu. Quando acontecer, inverte a posição X. Quando colidir com a parte de cima ou de baixo, inverte a posição Y. Tambem verificar o gol(se passou do jogador ou da Cpu)
+            //Controles para movimentação da bola. São incrementos para propiciar o movimento
+            posBolaX+=velBola*bolaX; //posição da bola é a velocidade da bola vezes a variavel de direção da bola
+            posBolaY+=velBola*bolaY;
+
+            // Colisão com o jogador
+            if(
+                (posBolaX <= posJogadorX+barraW)&&//a posição do jogador é no canto superior esquerdo, por isso +largura da barra
+                ((posBolaY+bolaH >= posJogadorY)&&(posBolaY <= posJogadorY+barraH)))  //verificando se a bola está no limite da barra, senão passa direto
+                {
+                    bolaY=(((posBolaY+(bolaH/2))-(posJogadorY+(barraH/2)))/16); //divide a altura da bola por 2 para pegar o meio da bola. A mesma coisa com o jogador. Assim não desloca no Y. Dividimos a altura do jogador em 16 partes para direcionar a bola para direções diferentes de acordo com o ponto em que ela bater no jogador
+                    bolaX*=-1;
+            }
+
+            // Colisão com a CPU. O que muda é porque a CPU está do outro lado do campo.
+            if(
+                (posBolaX >= posCpuX-barraW)&&
+                ((posBolaY+bolaH >= posCpuY)&&(posBolaY <= posCpuY+barraH))){
+                    bolaY=(((posBolaY+(bolaH/2))-(posCpuY+(barraH/2)))/16); 
+                    bolaX*=-1;
+
+
+            vbola.style.top=posBolaY+"px";
+            vbola.style.left=posBolaX+"px";
+        }
+
 
         //Implementação do teclado
         //Pega o codigo da tecla pressionada, comparo com as teclas que quero usar e executo a ação
@@ -113,7 +143,7 @@
         function teclaUp(){  //Chama a função quando a tecla for liberada. Para a movimentação
             tecla=event.KeyCode;
             if(tecla==38){ //tecla seta para cima
-                dirJy=0;
+                dirJy=0; 
             }else if(tecla==40){ //tecla seta para baixo
                 dirJy=0;
             }
@@ -123,6 +153,7 @@
         function game(){ //função para controle da animação. Vai ser chamada repetidamente e nela estão todos os controles do game(jogador, bola, cpu)
             if(jogo){ //se jogo estiver em execução, ela recebe as funções de controle do game
                controlajog();
+               controlaBola();
             }
             frames=requestAnimationFrame(game); //adicionando a animação. Função recursiva
         }
@@ -132,9 +163,17 @@
                 cancelAnimationFrame(frames); //tem que cancelar assim que começa para evitar de ficar chamando uma função em cima da outra em loop.
                 jogo=true; //inicia o jogo
                 dirJy=0;
+                bolaY=0;
+                if((Math.random()*10)<5){ //sorteando a direção que a bola vai sair quando começar o jogo
+                    bolaX=-1;
+                }else{
+                    bolaX=1;
+                }
+                posJogadorX=posJogIniX;
                 posBolaX=posBolaIniX;
                 posBolaY=posBolaIniY;
-                posJogadorY=posJogIniY; //jogador so se move no eixo Y
+                posJogadorY=posJogIniY; //jogador so se move no eixo Y. Posicionado no inicio do jogo no meio
+                posCpuX=posCpuIniX;
                 posCpuY=posCpuIniY; //Cpu so se move no eixo Y
                 game(); //inicializa a animação quando precionar iniciaJogo. Faz a chamada do loop de animação
             }
