@@ -10,23 +10,19 @@
             margin: 0px;
             background-color: #aaa;
         }
-
         #dvPainel{
             display: flex;
             height: 50px;
             align-items: center;
         }
-
         .itemPainel{
             margin: 5px;
         }
-
         #dvJogo{
             width: 960px;
             height: 500px;
             background-color: #000;
         }
-
         #dvBola{
             position: absolute;
             top: 240px;
@@ -34,8 +30,8 @@
             width: 20px;
             height: 20px;
             background-color: #888;
+            border-radius: 100%;
         }
-
         .barra{
             position: absolute;
             width: 20px;
@@ -43,13 +39,16 @@
             background-color: #888;
             top: 180px;
         }
-
         .esquerda{
             left: 10px;
         }
-
         .direita{
             left: 930px;
+        }
+        .meio{
+            width: 483px;
+            height: 500px;
+            border-right: 2px solid #888;
         }
         
     </style>
@@ -74,7 +73,7 @@
         var dirJy; //direção Y do jogador
 
         //Posições iniciais do jogador e da bola. Importante quando for reiniciar o jogo
-        var posJogIniY=180,posJogIniX=0,posCpuIniX=930,posCpuIniY=180,posBolaIniX=475,posBolaIniY=240;
+        var posJogIniY=180,posJogIniX=10,posCpuIniX=930,posCpuIniY=180,posBolaIniX=475,posBolaIniY=240;
 
         //Tamanhos do campo(largura e altura), das barras dos jogadores e da bola
         var campoX=0,campoY=0,campoW=960,campoH=500;
@@ -101,6 +100,36 @@
                 vjogador.style.top=posJogadorY+"px";
             }
         }
+
+        function controlaCpu(){ //verificar a posição da bola, se entá indo em direção a CPU ou em direção ao jogador e posicionar a CPU de acordo com a posição da bola. Quando rebate a bola, para de acompanhar a posição (a bola está indo para o jogador). Volta a acompanhar quando a bola estiver vindo pra a CPU e passar do meio do campo.
+            if(jogo){ //verifica se jogo está em execução
+                if(  //verifica se a bola está na metade esquerda(posBolaX < campoH/2) ou direita (posBolaX > campoH/2) do campo
+                    (posBolaX > (campoW/2))&&(bolaX > 0)){  //posição da bola (bolaX > 0) significa que a bola vai para a direita
+                        //Movimentação da CPU para rebater a bola
+                        if(((posBolaY+(bolaH/2)) > (posCpuY+(barraH/2))+velCpu)){ //velCpu é para dar atraso para ficar mais realista
+                            //Mover para baixo (verifico a posição da bola e movo a CPU em relação a bola)
+                            if((posCpuY+barraH) <= campoH){ //Dando limite para não sair da tela de jogo. Aqui ele pode mover a CPU
+                                    posCpuY+=velCpu; //descendo a CPU
+                            }
+                        }else if(((posBolaY+(bolaH/2)) < (posCpuY+barraH/2))-velCpu){ 
+                            //Mover para cima
+                            if(posCpuY >= 0){ 
+                                    posCpuY-=velCpu; //CPU subindo
+                            }
+                        }
+                }else{
+                    //Posicionar a CPU no centro, pois a CPU já rebateu a bola
+                    if((posCpuY+(barraH/2)) < (campoH/2)){ //se posição Y da CPU for < que a metade do campo, move a CPU para o centro. Mesma coisa se for > que metade do campo
+                        posCpuY+=velCpu; //CPU no alto do campo. Movendo para baixo até o centro
+                    }else if((posCpuY+(barraH/2)) > (campoH/2)){ 
+                        posCpuY-=velCpu; //CPU em baixo do campo. Movendo para cima.
+                    }
+                }
+                vcpu.style.top=posCpuY+"px";  //posicionando a CPU no centro quando ela rebater a bola. cvpu é referencia do elemento na tela
+            }
+        }
+
+
 
         function controlaBola(){ //verificar quando a bola colide com o jogador e com a cpu. Quando acontecer, inverte a posição X. Quando colidir com a parte de cima ou de baixo, inverte a posição Y. Tambem verificar o gol(se passou do jogador ou da Cpu)
             //Controles para movimentação da bola. São incrementos para propiciar o movimento
@@ -163,18 +192,18 @@
         //Pega o codigo da tecla pressionada, comparo com as teclas que quero usar e executo a ação
         function teclaDw(){ //Chama essa função quando a tecla for pressionada. Inicia a movimentação
             tecla=event.KeyCode;
-            if(tecla==37){ //tecla seta para cima
+            if(tecla==38){ //tecla seta para cima
                 dirJy=-1;
-            }else if(tecla=39){ //tecla seta para baixo
+            }else if(tecla==40){ //tecla seta para baixo
                 dirJy=+1;
             }
         }
 
         function teclaUp(){  //Chama a função quando a tecla for liberada. Para a movimentação
             tecla=event.KeyCode;
-            if(tecla==37){ //tecla seta para cima
+            if(tecla==38){ //tecla seta para cima
                 dirJy=0; 
-            }else if(tecla==39){ //tecla seta para baixo
+            }else if(tecla==40){ //tecla seta para baixo
                 dirJy=0;
             }
         }
@@ -182,8 +211,9 @@
 
         function game(){ //função para controle da animação. Vai ser chamada repetidamente e nela estão todos os controles do game(jogador, bola, cpu)
             if(jogo){ //se jogo estiver em execução, ela recebe as funções de controle do game
-               controlajog();
-               controlaBola();
+               controlajog();  //controles do jogador
+               controlaBola(); //controles da bola
+               controlaCpu();  //controles da CPU
             }
             frames=requestAnimationFrame(game); //adicionando a animação. Função recursiva
         }
@@ -200,12 +230,12 @@
                 }else{
                     bolaX=1;
                 }
-                posJogadorX=posJogIniX;
                 posBolaX=posBolaIniX;
                 posBolaY=posBolaIniY;
                 posJogadorY=posJogIniY; //jogador so se move no eixo Y. Posicionado no inicio do jogo no meio
-                posCpuX=posCpuIniX;
+                posJogadorX=posJogIniX;
                 posCpuY=posCpuIniY; //Cpu so se move no eixo Y
+                posCpuX=posCpuIniX;
                 game(); //inicializa a animação quando precionar iniciaJogo. Faz a chamada do loop de animação
             }
             
@@ -216,8 +246,8 @@
             vbtIniciar=document.getElementById("btIniciar");
             vbtIniciar.addEventListener("click",iniciaJogo);
             vjogador=document.getElementById("dvJogador");
-            vbola=document.getElementById("dvBola");
             vcpu=document.getElementById("dvCpu");
+            vbola=document.getElementById("dvBola");
             vpaineltxtpontos=document.getElementById("txtPontos");
             document.addEventListener("keydown",teclaDw);
             document.addEventListener("keyup",teclaUp);
