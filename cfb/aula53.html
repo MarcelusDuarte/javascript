@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objeto Window</title>
+   <style>
+        #painel{
+            width: 400px;
+            height: 500px;
+            border: 1px solid #000;
+            border-radius: 10px;
+            padding: 10px;
+        }
+    </style>
+    <script>
+
+        var painel;
+
+        function localizar(pos){ //parametro position para obter as coordenadas
+            var c=pos.coords;
+            painel.innerHTML+="Localização: Lat: "+ c.latitude + " - Long: " + c.longitude + "<hr>";
+        }
+
+        function verifica(){
+            painel=document.getElementById("painel");
+            painel.innerHTML="Nome do Browser: " + navigator.appName + "<hr>"; //appName, nos browsers modernos retorna NETSCAPE
+            painel.innerHTML+="Versão do Browser: " + navigator.appVersion + "<hr>"; // concatena (+=) porque estão na mesma variavel. Se não ele substitui
+            painel.innerHTML+="Cookies: " + navigator.cookieEnabled + "<hr>";
+            navigator.geolocation.getCurrentPosition(localizar) + "<hr>"; //getVCurrentPosition precisa de 3 parametros (1-se obteve sucesso na localização, se browser suporta,etc, 2- se houver erro chama a 2 função, 3- opções como precisão da localização)
+            painel.innerHTML+="Idioma: " + navigator.language + "<hr>";
+            painel.innerHTML+="Online: " + navigator.onLine + "<hr>";
+            painel.innerHTML+="SO: " + navigator.platform + "<hr>";
+            painel.innerHTML+="Engine: " + navigator.product + "<hr>";
+            painel.innerHTML+="Agente: " + navigator.userAgent + "<hr>";
+        }
+
+        window.addEventListener("load",verifica);
+        
+    </script>
+</head>
+
+<body>
+
+    <div id="painel"></div>
+
+</html>
