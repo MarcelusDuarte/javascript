@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objeto Window</title>
+   <style>
+    #painel{
+        border:1px solid #000;
+        border-radius: 10px;
+        padding: 15px;
+        width: 2000px;
+        height: 2000px;
+        background-color: #ddd;
+        /*altura e largura da div aumentada para criar barras de rolagem*/
+    }
+</style>
+<script>
+
+    
+    var largint,altint,largext,altext,posX,posY,painel;
+
+    function info(){
+        largint=window.innerWidth;
+        altint=window.innerHeight;
+        largext=window.outerWidth;
+        altext=window.outerHeight;
+        posX=window.screenX;
+        posY=window.screenY;
+        painel.innerHTML="Largura Interna:"+largint+"<br>Altura Interna:"+altint+"<br>Largura Externa:"+largext+"<br>Altura Externa:"+altext+"<br>PosX:"+posX+"<br>PosY:"+posY;
+    }
+
+    function rolar(){
+        window.scrollBy(500,500);//movimenta a janela para a posição X=500 e Y=500
+    }
+    
+
+    function inicia(){
+        document.getElementById("btnTam").addEventListener("click",info);
+        document.getElementById("btnPos").addEventListener("click",rolar);//adicionando o evento de click no botao
+        painel=document.getElementById("painel");
+    }
+
+    window.addEventListener("load",inicia);
+
+</script>
+</head>
+
+<body>
+
+    <button id="btnTam">Tamanho</button>
+    <button id="btnPos">Rolar</button>
+    <div id="painel"></div>
+
+</html>
