@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objeto Window</title>
+    <script>
+
+        //window.open();  //abre nova janela
+
+        var minhaJanela1; //criada variavel global para funcionar dentro das duas funções. Escopo de variáveis
+        var minhaJanela2;
+        
+        function abreJ(){
+            //var minhaJanela=window.open("aula50-a.html","curso");
+            minhaJanela1=window.open("aula50-a.html","_blank","width=300,height=300,top=300,left=300");
+            minhaJanela2=window.open("aula50-a.html","_blank","width=300,height=300,top=350,left=350");
+        }
+        function fechaJ(){
+            minhaJanela1.close();
+            minhaJanela2.close();
+        }
+        
+
+    </script>
+</head>
+
+<body>
+    
+    <button onclick="abreJ()">Abre Nova Janela</button> <!--abrindo nova janela num botão-->
+    <button onclick="fechaJ()">Fechar Janela</button>
+    <iframe name="curso" src=""></iframe> <!--criando iframe para hospedar a nova janela-->
+
+</body>
+</html>
