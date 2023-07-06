@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objeto Window</title>
+    <style>
+        
+    </style>
+    <script>
+
+        var painel,btnB,btnF,btnG;
+
+        /*
+        function historicoback(){
+            window.history.back(); //metodo back para voltar no historico
+        }
+
+        function historicoFor(){
+            window.history.forward(); //metodo forward para avançar no historico
+        }
+
+        function historicoGo(){
+            window.history.go(-2); //metodo permite avançar ou recuar um numero determinado de elementos do historico. Permite avançar ou retroceder mais de 1 pagina por vez. Posso voltar 2, 3 ou mais paginas no historico. Se numero for negativo ele volta. Se for positivo ele avança
+        }*/
+
+        //substituindo as 3 funções anteriores por 1
+        function historicoI(num){
+            window.history.go(num);
+        }
+
+        function inicia(){
+            btnB=document.getElementById("btnBack");  //assim podemos adicionar eventos de click
+            btnF=document.getElementById("btnForward");
+            btnG=document.getElementById("btnBack2");
+
+            /*
+            btnB.addEventListener("click",historicoback);
+            btnF.addEventListener("click",historicoFor);
+            btnG.addEventListener("click",historicoGo);
+            */
+
+            //substituindo eventos de click por função anônima
+            btnB.addEventListener("click",function(){
+                historicoI(-1);
+            });
+            btnF.addEventListener("click",function(){
+                historicoI(1);
+            });
+            btnG.addEventListener("click",function(){
+                historicoI(-2);
+            });
+
+            painel=document.getElementById("info");
+            painel.innerHTML=history.length; //tamanho do historico (historico de paginas da janela)
+
+        }
+
+        window.addEventListener("load",inicia);
+    </script>
+</head>
+
+<body>
+    <h1>Home - aula55.html</h1>
+    <p id="info"></p>
+
+    <a href="aula55.html">Home</a>
+    <a href="aula55-a.html">Página 2</a>
+    <a href="aula55-b.html">Página 3</a><hr>
+    <button id="btnBack">Voltar</button>
+    <button id="btnForward">Avançar</button>
+    <button id="btnBack2">Voltar 2</button>
+</body>
+</html>
