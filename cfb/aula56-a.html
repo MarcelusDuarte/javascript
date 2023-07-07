@@ -17,7 +17,7 @@
 
         var aux=location.hash; //dentro de aux ja tenho todos os parametros passados. Hash - passagem de parametros de uma pagina para outra. Vai verificar as ancoras (#) e vai obter os valores dessas ancoras
         document.write(aux + "<hr>");
-        var dados=aux.split("#"); //split para separar os parametros
+        var dados= aux.split("#"); //split para separar os parametros
         document.write(dados + "<hr>"); //Imprimi dados. Dados é um ARRAY
         document.write(dados[1]+"<hr>"); //imprimi o primeiro parametro (observar a , antes do cfbcursos. Se colocar [0], nao imprimi nada)
         var V1=dados[1];

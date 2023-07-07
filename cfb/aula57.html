@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objeto Window</title>
+    <script>
+
+        //location.assign("aula57-a.html"); //direciona para a nova url mas nao remove a URL do historico
+        //location.replace("aula57-a.html"); //direciona para nova URL e remove a URL do historico
+        //location.reload(); //faz um recarregamento da pagina. Precisa ficar associado a um evento para nao recarregar infinitamente.
+
+        function P2(){
+            location.replace("aula57-a.html"); //não permite voltar com a setinha da barra superior da pagina
+            //location.assign("aula57-a.html"); // Permite voltar com a setinha da barra superior da pagina
+        }
+        function rec(){
+            location.reload();
+        }
+
+
+
+    </script>
+</head>
+
+<body>
+
+    <h1>Objeto Location</h1>
+    <button id="btnP2" onclick="P2()">Página 2</button>
+    <button id="btnReload" onclick="rec()">Recarregar</button>
+    
+</body>
+</html>
