@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objeto Window</title>
+    <script>
+
+      //Verificando se o browser suporta WebStorage antes de usar. Se não suportar, mostra a mensagem direto
+        /*if(typeof(Storage)!="undefined"){
+            localStorage.setItem("canal","CFBCursos");
+            //localStorage.removeItem("canal");
+
+            var vcanal=localStorage.getItem("canal");
+
+            document.write(vcanal);
+        }else{
+            document.write("Sem suporte a WebStorage");
+        }*/
+
+       //Implementando contador de visitas ao site
+        if(typeof(Storage)!="undefined"){
+            
+            if(localStorage.visitas){  //verifica se a chave existe. Se existir, faz o if. Se não, entra no else e cria a chave
+                localStorage.visitas=Number(localStorage.visitas)+1;
+            }else{
+                //localStorage.setItem("visitas",1);  //=> as duas linhas fazem a mesma coisa
+                localStorage.visitas=1;
+            }
+            document.write("Visitas: " + localStorage.visitas);
+        }else{
+            document.write("Sem suporte a WebStorage!");
+        } 
+
+
+    </script>
+</head>
+
+<body>
+
+   
+    
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objeto Window</title>
+    <style>
+        /* configurações para o fconf iniciar oculto*/
+        #fconf{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            border: 1px solid #000;
+            background-color: #888;
+            padding: 20px;
+            border-radius: 5px;
+            display: none; /*esconde o formulario*/
+        }
+    </style>
+    <script>
+
+        var vcorf,vcort,vnome;
+
+        function inicia(){
+            if(localStorage.nome){
+                vcorf=localStorage.corf;
+                vcort=localStorage.cort;
+                vnome=localStorage.nome;
+                definecor(1,vcorf);
+                definecor(2,vcort);
+                document.getElementById("painel").innerHTML="Bem vindo "+vnome+"<hr>";
+            }
+        }
+
+        function gravar(){
+            var form=document.getElementById("fconf");
+            vnome=document.getElementById("fnome").value;
+            localStorage.corf=vcorf;
+            localStorage.cort=vcort;
+            localStorage.nome=vnome;
+            form.style.display="none";
+        }
+
+        function definecor(op,cor){ //vai receber uma operação e uma cor. Op=1, cor do fundo. Op=2, cor do texto
+            if(op==1){
+                document.body.style.backgroundColor=cor;
+                vcorf=cor;
+            }else{
+                document.body.style.color=cor;
+                vcort=cor;
+            }
+
+        }
+
+        function mostraConf(){
+            var form=document.getElementById("fconf");
+            form.style.display="block"; //mostra o formulario quando clicar no botao
+        }
+
+        window.addEventListener("load",inicia);
+
+    </script>
+</head>
+<body>
+
+    <p>LocalStorage - Curso de JavaScript</p>
+    <p id="painel"></p>
+
+    <button onclick="mostraConf()">Configurações</button>
+
+   <form name="fconf" id="fconf">
+    <label>Nome:</label><br>
+    <input type="text" name="fnome" id="fnome" size="20"><br><br>
+    <label>Cor Fundo</label><br>
+    <input type="radio" name="fcorF" onclick="definecor(1,'#000')">Preto<br>
+    <input type="radio" name="fcorF" onclick="definecor(1,'#fff')">Branco<br>
+    <input type="radio" name="fcorF" onclick="definecor(1,'#f00')">Vermelho<br>
+    <input type="radio" name="fcorF" onclick="definecor(1,'#0f0')">Verde<br>
+    <input type="radio" name="fcorF" onclick="definecor(1,'#00f')">Azul<br><br>
+    <label>Cor Texto</label><br>
+    <input type="radio" name="fcorT" onclick="definecor(2,'#000')">Preto<br>
+    <input type="radio" name="fcorT" onclick="definecor(2,'#fff')">Branco<br>
+    <input type="button" value="Gravar" onclick="gravar()">
+
+   </form>
+    
+</body>
+</html>
