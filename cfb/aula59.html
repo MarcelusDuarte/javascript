@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CFB Cursos - Javascript</title>
+    <script>
+
+        
+        function pagina(pg){
+            //Criando uma forma de armazenar o texto escrito no campo texto em uma variavel
+            sessionStorage.nome=document.getElementById("fnome").value; //Criada a chave NOME que recebe o valor FNOME
+            window.location.assign("aula59-"+pg+".html"); //assim não precisa fazer o teste do IF
+            /*
+            if(pg==2){
+               window.location.assign("p2.html"); //assign chama definida
+            }else if(pg==3){
+                window.location.assign("p3.html");
+            }*/
+            
+        }
+
+        function inicia(){
+            document.getElementById("btnP2").addEventListener("click",function(){ //usando função anonima para direcionar para as duas paginas escrevendo apenas 1 função
+                pagina(2);
+            });
+            document.getElementById("btnP3").addEventListener("click",function(){
+                pagina(3);
+            });
+            document.getElementById("btnLimpar").addEventListener("click",function(){
+                sessionStorage.clear();
+            });
+            
+        }
+
+       window.addEventListener("load",inicia) ;
+      
+    </script>
+</head>
+
+<body>
+
+   <input type="text" name="fnome" id="fnome" size="20" maxlength="20"><br><br>
+   <button id="btnP2">Página 2</button>
+   <button id="btnP3">Página 3</button>
+   <button id="btnLimpar">Limpar sessionStorage</button>
+    
+</body>
+</html>

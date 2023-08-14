@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CFB Cursos - Javascript</title>
+    <style>
+        body{
+            background-color: #800;
+            color: #fff;
+        }
+    </style>
+    <script>
+        //Obtendo o valor da chave NOME e escrevendo na tela. Espera toda a pagina ser carregada para obter o nome
+        function inicia(){
+            document.getElementById("painel").innerHTML=sessionStorage.nome; //pega o conteudo da chave NOME e escreve dentro da div painel
+        }
+       window.addEventListener("load",inicia) ;
+      
+    </script>
+</head>
+
+<body>
+
+   <h2>Página 2</h2>
+   <div id="painel"></div>
+    
+</body>
+</html>
