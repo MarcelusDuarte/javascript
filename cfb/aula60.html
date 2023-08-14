@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CFB Cursos - Javascript</title>
+    <script>
+
+        /*
+        var p=document.createElement("p");
+        //p.textContent="CFB Cursos";
+        var t=document.createTextNode("Curso de Javascript")
+        
+        function inicia(){
+            p.appendChild(t);
+            document.body.appendChild(p);
+        }*/
+
+        //Criando uma lista para receber tudo o que for escrito no campo texto quando clicar em Adicionar
+
+        function inicia(){
+            document.getElementById("btnAdd").addEventListener("click",function(){
+                var lista=document.getElementById("listaElementos"); 
+                var texto=document.getElementById("fnovo"); //joga o que foi escrito no campo para a variavel texto
+                var li=document.createElement("li"); //cria o elemento lista
+                li.textContent=texto.value; //define o conteudo
+                lista.appendChild(li); //adiciona o conteudo onde quiser (dentro da variavel lista que recebe os valores da ListaElementos)
+                texto.value=""; //limpa o campo
+                texto.focus(); //mantem o cursor no campo
+            });
+        }
+
+        window.addEventListener("load",inicia); //é preciso carregar primeiro a pagina para criar o body para funcionar
+        
+    </script>
+</head>
+
+<body>
+
+   <input type="text" id="fnovo"><button id="btnAdd">Adicionar</button><br><br>
+   <ul id="listaElementos"></ul>
+</body>
+</html>
